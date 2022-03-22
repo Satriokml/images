@@ -23,7 +23,7 @@ Kita diminta untuk membuat program untuk membuat 2 directory di **/home/[USER]/m
 ```c
 void listFilesRecursively(char * path);
 int main() {
-  chdir("/home/satrio/modul2/");
+  chdir("/home/[USER]/modul2/");
 
   int fork0 = fork();
   int status;
@@ -72,20 +72,20 @@ else {
     int fork4 = fork();
     
     if (fork4 == 0) {
-        char * argv[] = {"find", "/home/satrio/modul2/animal/", "-name", "*darat*", "-exec", "mv", "-t", "/home/satrio/modul2/darat/", "{}", "+", NULL};
+        char * argv[] = {"find", "/home/[USER]/modul2/animal/", "-name", "*darat*", "-exec", "mv", "-t", "/home/[USER]/modul2/darat/", "{}", "+", NULL};
         execv("/bin/find", argv);
         } 
         else {
             while ((wait( & status)) > 0);
             int fork5 = fork();
             if (fork5 == 0) {
-                char * argv[] = {"find", "/home/satrio/modul2/animal/", "-name", "*air*", "-exec","mv", "-t", "/home/satrio/modul2/air/", "{}", "+", NULL};
+                char * argv[] = {"find", "/home/[USER]/modul2/animal/", "-name", "*air*", "-exec","mv", "-t", "/home/[USER]/modul2/air/", "{}", "+", NULL};
                 execv("/bin/find", argv);
                 }
         }
 }
 ```
-Sama seperti sebelumnya, kita akan menggunakan function `wait()` untuk menunggu proses sebelumnya selesai, dan `fork()` untuk membentu fork lain agar program dapat lanjut berjalan. Pada kode ini, array argv diisi dengan command `{"find", "/home/satrio/modul2/animal/", "-name", "*darat*", "-exec", "mv", "-t", "/home/satrio/modul2/darat/", "{}", "+", NULL};`. Command `find` digunakna untuk mencari file dalam sebuah direktori, `/home/satrio/modul2/animal/` adalah direktori yang akan digunakan untuk mencari filenya, `"-name", "*darat*"` digunakan untuk mencari file yang mengandung nama darat entah itu di awal, di tengah, maupun di akhir. Command `"-exec", "mv"` adalah lanjutan dari command `find`, yang berfungsi untuk memindahkan file hasil pencarian tersebut ke direktori tertentu, dan `"/home/satrio/modul2/darat/"` adalah tujuan pindahnya. kemudian akan dijalankan `execv()` dengan parameter file path nya yaitu **/bin/find**, dan command yang akan dieksekusi sesuai dengan array argv. Fungsi `find()` ini juga digunakan untuk memindahkan file yang mengandung nama air pada direktori animal, ke dalam direktori air. Perbedaannya adalah command `"-name", "*darat*"`, diganti dengan `"-name", "*air*"`, dan path direktori `"/home/satrio/modul2/darat/"` diganti dengan `"/home/satrio/modul2/air/"`.
+Sama seperti sebelumnya, kita akan menggunakan function `wait()` untuk menunggu proses sebelumnya selesai, dan `fork()` untuk membentu fork lain agar program dapat lanjut berjalan. Pada kode ini, array argv diisi dengan command `{"find", "/home/[USER]/modul2/animal/", "-name", "*darat*", "-exec", "mv", "-t", "/home/[USER]/modul2/darat/", "{}", "+", NULL};`. Command `find` digunakna untuk mencari file dalam sebuah direktori, `/home/[USER]/modul2/animal/` adalah direktori yang akan digunakan untuk mencari filenya, `"-name", "*darat*"` digunakan untuk mencari file yang mengandung nama darat entah itu di awal, di tengah, maupun di akhir. Command `"-exec", "mv"` adalah lanjutan dari command `find`, yang berfungsi untuk memindahkan file hasil pencarian tersebut ke direktori tertentu, dan `"/home/[USER]/modul2/darat/"` adalah tujuan pindahnya. kemudian akan dijalankan `execv()` dengan parameter file path nya yaitu **/bin/find**, dan command yang akan dieksekusi sesuai dengan array argv. Fungsi `find()` ini juga digunakan untuk memindahkan file yang mengandung nama air pada direktori animal, ke dalam direktori air. Perbedaannya adalah command `"-name", "*darat*"`, diganti dengan `"-name", "*air*"`, dan path direktori `"/home/[USER]/modul2/darat/"` diganti dengan `"/home/[USER]/modul2/air/"`.
 
 ### Menghapus hewan yang tidak memilki keterangan *air* atau *darat*.
 Selanjutnya, kita diminta untuk menghapus hewan yang tidak memilki keterangan air atau darat.
@@ -94,7 +94,7 @@ else {
     while ((wait( & status)) > 0);
     int fork6 = fork();
     if (fork6 == 0) {
-        chdir("/home/satrio/modul2/animal/");
+        chdir("/home/[USER]/modul2/animal/");
         char * argv[] = {"find", "-type", "f", "-name", "*", "-delete", NULL};
         execv("/bin/find", argv);
         }
@@ -110,7 +110,7 @@ else {
     int fork7 = fork();
               
     if (fork7 == 0) {
-        chdir("/home/satrio/modul2/darat/");
+        chdir("/home/[USER]/modul2/darat/");
         char * argv[] = {"find", "-type", "f", "-name", "*bird*", "-delete", NULL};
         execv("/bin/find", argv);
         }
@@ -124,8 +124,8 @@ Pada soal ini, kita diminta untuk membuat file list.txt di folder **/home/[USER]
 ### Panggil fungsi
 ```c
 else{
-    chdir("/home/satrio/modul2/air/");
-    char path[100] = "/home/satrio/modul2/air";
+    chdir("/home/[USER]/modul2/air/");
+    char path[100] = "/home/[USER]/modul2/air";
     listFilesRecursively(path);
     }
 ```
@@ -134,7 +134,7 @@ Pertama-tama, kita akan mengganti working directory nya ke direktori animal deng
 ### Fungsi **listFilesRecursively()**
 ```c
 void listFilesRecursively(char * basePath) {
-  char path[100] = "/home/satrio/modul2/air";
+  char path[100] = "/home/[USER]/modul2/air";
   struct stat fs;
   struct stat info;
   struct dirent * dp;
